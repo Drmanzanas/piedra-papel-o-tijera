@@ -22,16 +22,17 @@ class Home extends Component{
 
     putName(e){
         let name = e.target.value
-        if(e.target.value.length > 0){
+        if(e.target.value.length === 0){
             this.setState({
                 ...this.state,
                 name,
-                error: false
+                error: true
             })
         }else{
             this.setState({
                 ...this.state,
-                error: true
+                name,
+                error: false
             })
         }
     }
@@ -42,7 +43,7 @@ class Home extends Component{
                 <button className='button-play' onClick={this.startGame.bind(this)}>Empezar</button> 
                 {this.state.start ? <input type='text' id='name' name='player_name'  placeholder='Elige tu nombre' onChange={this.putName.bind(this)}/> : ''}
                 {this.state.error && this.state.start ? <p className='error'>Tienes que elegir un nombre antes de comenzar</p> : ''}
-                <Game />
+                <Game name={this.state.name}/>
             </div>
         )
     }
