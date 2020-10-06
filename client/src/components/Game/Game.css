@@ -5,3 +5,33 @@
 .blue{
     background-color: blue;
 }
+
+.game{
+    display: flex;
+    flex-flow: column wrap;
+    width: 45vw;
+    margin: 0;
+}
+
+.game-weapons{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.weapons{
+    width: 30%;
+    margin: 0;
+    
+}
+
+.weapons-img{
+    width: 70px;
+    height: 70px;
+}
+
+.not-selected{
+    height: 300px;
+    width: 100%;
+}

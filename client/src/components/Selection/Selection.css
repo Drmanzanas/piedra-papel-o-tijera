@@ -1,0 +1,12 @@
+.selection{
+    height: 300px;
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.selection-img{
+
+}

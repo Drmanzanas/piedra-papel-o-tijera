@@ -1,0 +1,30 @@
+.Home{
+    height: 100vh;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+.game-section{
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.timer{
+    position: absolute;
+    display: flex;
+    flex-flow: row wrap;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
+.timer-seconds{
+    font-size: 50px;
+    font-weight: bolder;
+
+}

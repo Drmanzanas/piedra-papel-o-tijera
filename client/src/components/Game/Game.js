@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Game.css'
 
+import Selection from '../Selection/Selection'
+
 export default class Game extends Component{
     constructor(props){
         super(props)
@@ -8,44 +10,82 @@ export default class Game extends Component{
             weapons : [
                 {
                     name: 'Piedra',
-                    img: '/images/piedra.png'
+                    img: '/images/piedra.png',
+                    id: 1
                 },
                 {
                     name: 'Papel',
-                    img: '/images/papel.png'
+                    img: '/images/papel.png',
+                    id: 2
                 },
                 {
                     name: 'Tijeras',
-                    img: '/images/tijera.jpeg'
+                    img: '/images/tijera.jpeg',
+                    id: 3
                 }
             ],
-            selected: '',
-            class: 'red'
+            selected: false,
+            selection: '',
+            bot: false
         }
     }
 
-    changeColor(){
-        if(this.state.class === 'red'){
+    componentDidMount(){
+        if(this.props.isBot)
             this.setState({
                 ...this.state,
-                class: 'blue'
+                bot: true
             })
-        }else{
-            this.setState({
-                ...this.state,
-                class: 'red'
-            })
+    }
+
+    componentDidUpdate(){
+        if(this.state.bot && this.props.botChoose){
+            this.botSelect()
+            this.props.setUndefined(undefined)
         }
     }
+
+    botSelect(){
+        let random = Math.floor(Math.random() * 3 )
+        this.setState({
+            ...this.state,
+            selection: this.state.weapons[random]
+        })
+        setTimeout(() => {
+            this.props.selectedVal(this.state.selection.id,this.state.bot)
+            this.setState({
+                ...this.state,
+                selected: true
+            })
+        }, 3000)
+    }
+
+    selectWeapon(val){
+        this.setState({
+            ...this.state,
+            selected: true,
+            selection: this.state.weapons[val],
+        })
+        this.props.selectedVal(this.state.weapons[val].id,this.state.bot)
+        this.props.chosen(true)
+    }
+
     render(){
         return(
             <main className='game'>
                 <section className='game-weapons'>
-                    {this.state.weapons.map((e,i) => <figure className='weapons' key={i}>
+                    {!this.state.bot ? this.state.weapons.map((e,i) => <figure className='weapons' key={i} onClick={() => this.selectWeapon(i)}>
+                        <img src={e.img} alt={e.name} className='weapons-img' />
+                        <figcaption>{e.name}</figcaption>
+                    </figure>) : this.state.weapons.map((e,i) => <figure className='weapons' key={i}>
                         <img src={e.img} alt={e.name} className='weapons-img' />
                         <figcaption>{e.name}</figcaption>
                     </figure>)}
-                    <button className={this.state.class} onClick={this.changeColor.bind(this)}>{this.props.name}</button>
+                </section>
+                
+                {this.state.selected ? <Selection weapon={this.state.selection} /> : <div className='not-selected'></div>}
+                <section className='player'>
+                    <p className='player-name'>Jugador: {this.props.name}</p>
                 </section>
             </main>
         )
