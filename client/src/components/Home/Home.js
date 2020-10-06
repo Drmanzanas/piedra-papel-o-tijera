@@ -14,8 +14,18 @@ class Home extends Component{
             bot: 'BOT',
             chosen: false,
             botSelect: undefined,
-            seconds: 3
+            seconds: 3,
         }
+    }
+
+    componentDidUpdate(prevP,prevS){
+        if(this.state.playerWeapon !== prevS.playerWeapon){
+            this.setState({
+                ...this.state,
+                showWinner: undefined
+            })
+        }
+
     }
 
     startGame(){
@@ -60,9 +70,7 @@ class Home extends Component{
         if(this.state.showWinner){
             this.setState({
                 ...this.state,
-                showWinner: false,
-                playerWeapon: undefined,
-                botWeapon: undefined
+                showWinner: undefined,
             })
         }
         if(this.state.chosen)
@@ -118,12 +126,13 @@ class Home extends Component{
     winner(){
         let botWeapon = this.state.botWeapon.id
         let playerWeapon = this.state.playerWeapon.id
-        if((playerWeapon === 1 && botWeapon === 3) || (playerWeapon === 2 && botWeapon === 1) || (playerWeapon === 3 && botWeapon === 2))
+        if((playerWeapon === 1 && botWeapon === 3) || (playerWeapon === 2 && botWeapon === 1) || (playerWeapon === 3 && botWeapon === 2)){
             return <p>El ganador es {this.state.name}</p>
-        else if(playerWeapon === botWeapon)
+        }else if(playerWeapon === botWeapon){
             return <p>Empate</p>
-        else
+        }else{
             return <p>El ganador es BOT</p>
+        }
     }
 
     render(){
@@ -135,7 +144,7 @@ class Home extends Component{
                 {this.state.error && this.state.start ? <p className='error'>Tienes que elegir un nombre antes de comenzar</p> : ''}
                 <section className='game-section'>
                     {this.state.game ? <Game name={this.state.name} isBot={false} chosen={this.selectedWeapon.bind(this)} round={this.state.botSelect !== undefined} selectedVal={this.compareWeapon.bind(this)} /> : ''}
-                    {this.state.game ? <Game name={this.state.bot} isBot={true} botChoose={this.state.botSelect !== undefined} setUndefined={this.putUndefined.bind(this)} round={this.state.botSelect !== undefined} selectedVal={this.compareWeapon.bind(this)} /> : ''}
+                    {this.state.game ? <Game name={this.state.bot} isBot={true} botChoose={this.state.botSelect !== undefined} setUndefined={this.putUndefined.bind(this)} round={this.state.botSelect !== undefined} selectedVal={this.compareWeapon.bind(this)} eraseWeapon={this.state.showWinner === undefined}/> : ''}
                 </section>
                 { this.state.game ? <section className='timer'>
                     <p className='timer-seconds'>{this.state.seconds}</p>

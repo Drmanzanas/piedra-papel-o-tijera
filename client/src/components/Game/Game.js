@@ -38,10 +38,19 @@ export default class Game extends Component{
             })
     }
 
-    componentDidUpdate(){
+    componentDidUpdate(prevP,prevS){
         if(this.state.bot && this.props.botChoose){
             this.botSelect()
             this.props.setUndefined(undefined)
+        }
+        if(!this.state.bot && prevS.selection !== this.state.selection){
+            this.props.selectedVal(this.state.selection.id,this.state.bot)
+        }
+        if(this.state.bot && this.props.eraseWeapon && this.state.selected){
+            this.setState({
+                selected: false,
+                selection: ''
+            })
         }
     }
 
@@ -66,7 +75,7 @@ export default class Game extends Component{
             selected: true,
             selection: this.state.weapons[val],
         })
-        this.props.selectedVal(this.state.weapons[val].id,this.state.bot)
+        
         this.props.chosen(true)
     }
 
