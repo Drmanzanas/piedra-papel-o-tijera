@@ -127,18 +127,18 @@ class Home extends Component{
         let botWeapon = this.state.botWeapon.id
         let playerWeapon = this.state.playerWeapon.id
         if((playerWeapon === 1 && botWeapon === 3) || (playerWeapon === 2 && botWeapon === 1) || (playerWeapon === 3 && botWeapon === 2)){
-            return <p>El ganador es {this.state.name}</p>
+            return <p className='result'>El ganador es {this.state.name}</p>
         }else if(playerWeapon === botWeapon){
-            return <p>Empate</p>
+            return <p className='result'>Empate</p>
         }else{
-            return <p>El ganador es BOT</p>
+            return <p className='result'>El ganador es BOT</p>
         }
     }
 
     render(){
         return(
-            <div className='Home'>
-                <h1>Piedra, Papel o Tijera</h1>
+            <div className='home'>
+                <h1 className='home-h1'>Piedra, Papel o Tijera</h1>
                 {this.state.start ? <input type='text' id='name' name='player_name'  placeholder='Elige tu nombre' onChange={this.putName.bind(this)}/> : ''}
                 {this.state.game ? '' : <button className='button-play' onClick={this.startGame.bind(this)}>Empezar</button> }
                 {this.state.error && this.state.start ? <p className='error'>Tienes que elegir un nombre antes de comenzar</p> : ''}

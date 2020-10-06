@@ -1,10 +1,34 @@
-.Home{
+.home{
     height: 100vh;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
     align-items: center;
+    background-color: black;
 }
+
+.home-h1{
+    color: white;
+}
+
+.button-play{
+    cursor: pointer;
+    width: 15%;
+    height: 40px;
+    font-size: 24px;
+    background-color: lightblue;
+    border: none;
+    border-radius: 15px;
+    text-transform: uppercase;
+    margin-top: 15px;
+    z-index: 3;
+}
+
+#name{
+    width: 20%;
+    height: 24px;
+}
+
 .game-section{
     display: flex;
     width: 100vw;
@@ -20,11 +44,16 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    z-index: -1;
+    z-index: 0;
 }
 
 .timer-seconds{
-    font-size: 50px;
+    font-size: 32px;
     font-weight: bolder;
+    color: white;
+}
 
+.result{
+    color: white;
+    font-size: 16px;
 }
